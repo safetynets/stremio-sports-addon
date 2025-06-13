@@ -1,9 +1,9 @@
 // PORT
-const ADDON_PORT = process.env.ADDON_PORT || 7000;
+const ADDON_PORT = process.env.ADDON_PORT || 7001;
 // URL IMAGE VERCEL:  ==>>  'https://URL.vercel.app/api/generate-image'
-const IMAGE_GENERATOR_BASE_URL = process.env.IMAGE_GENERATOR_BASE_URL || '';
+const IMAGE_GENERATOR_BASE_URL = process.env.IMAGE_GENERATOR_BASE_URL || 'https://sport-image-generator-git-main-eldricks-projects-a5ce17de.vercel.app/';
 // DESTINATION time zone offset in hours (e.g. -3 for UTC-3).
-const TIMEZONE_OFFSET_HOURS = parseInt(process.env.TIMEZONE_OFFSET_HOURS || '-3', 10); 
+const TIMEZONE_OFFSET_HOURS = parseInt(process.env.TIMEZONE_OFFSET_HOURS || '-7', 10); 
 
 
 
