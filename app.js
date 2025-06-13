@@ -9,8 +9,8 @@ let builder;
 
 function defineCatalogHandler() {
     builder.defineCatalogHandler(async ({ type, id, extra }) => {
-        const statusFilter = extra.estado || 'All';
-        const categoryFilter = extra.categoria || 'All';
+        const statusFilter = extra.status || 'All';
+        const categoryFilter = extra.category || 'All';
 
         if (id === 'sportslive_events_direct' && type === 'tv') {
 
