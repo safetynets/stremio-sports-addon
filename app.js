@@ -9,8 +9,8 @@ let builder;
 
 function defineCatalogHandler() {
     builder.defineCatalogHandler(async ({ type, id, extra }) => {
-        const statusFilter = extra.estado || 'Todos';
-        const categoryFilter = extra.categoria || 'Todas';
+        const statusFilter = extra.estado || 'All';
+        const categoryFilter = extra.categoria || 'All';
 
         if (id === 'sportslive_events_direct' && type === 'tv') {
 
@@ -37,7 +37,7 @@ function defineMetaHandler() {
         if (type === 'tv' && id.startsWith('sportslive:')) {
             const eventGroupId = id.replace('sportslive:', '');
             
-            const groupedEvents = await getGroupedEvents('Todos', 'Todas'); 
+            const groupedEvents = await getGroupedEvents('All', 'All'); 
 
             const eventGroup = groupedEvents.find(group => group.id === eventGroupId);
 
@@ -66,7 +66,7 @@ function defineStreamHandler() {
         if (args.type === 'tv' && args.id.startsWith('sportslive:')) {
             const eventGroupId = args.id.replace('sportslive:', '');
             
-            const groupedEvents = await getGroupedEvents('Todos', 'Todas'); 
+            const groupedEvents = await getGroupedEvents('All', 'All'); 
             const eventGroup = groupedEvents.find(group => group.id === eventGroupId);
 
             if (!eventGroup) {
@@ -91,7 +91,7 @@ function defineStreamHandler() {
                     const link = eventGroup.links[i];
                     
                     const urlObj = new URL(link);
-                    let streamNameFromLink = urlObj.searchParams.get('stream') || `Canal Desconocido`; 
+                    let streamNameFromLink = urlObj.searchParams.get('stream') || `Unknown Channel`; 
                     
                     streamNameFromLink = streamNameFromLink.replace(/_/g, ' ').toUpperCase();
 
@@ -152,20 +152,20 @@ Promise.all([
         catalogs: [
             {
                 id: 'sportslive_events_direct',
-                name: 'Eventos Deportivos',
+                name: 'Sports Events',
                 type: 'tv',
                 extra: [
                     {
-                        name: 'estado',
-                        options: ['Todos', 'En vivo', 'Pronto', 'Finalizados'],
+                        name: 'status',
+                        options: ['All', 'Live', 'Upcoming', 'Finished'],
                         isRequired: false,
-                        default: 'Todos'
+                        default: 'All'
                     },
                     { 
-                        name: 'categoria',
-                        options: ['Todas', ...uniqueCategories],
+                        name: 'category',
+                        options: ['All', ...uniqueCategories],
                         isRequired: false,
-                        default: 'Todas'
+                        default: 'All'
                     }
                 ]
             }
@@ -191,6 +191,6 @@ Promise.all([
     });
 })
 .catch(err => {
-    console.error(`[ADDON] ¡ERROR CRÍTICO! El addon no se pudo iniciar porque no se pudieron cargar todos los mapas de imágenes o el HTML de la homepage.`, err);
+    console.error(`[ADDON] CRITICAL ERROR! Failed to start addon: Could not load image maps or homepage HTML. `, err);
     process.exit(1);
 });
